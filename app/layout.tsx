@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
-import { MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Geist, Geist_Mono } from "next/font/google";
+import AppThemeProvider from "./contexts/AppThemeProvider";
+import SmoothScroll from "./contexts/SmoothScroll";
+import StartupLoader from "./contexts/StartupLoader";
+import ThemeToggle from "./contexts/ThemeToggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,10 +31,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      {...mantineHtmlProps}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <ColorSchemeScript defaultColorScheme="light" />
+      </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <MantineProvider>{children}</MantineProvider>
+        <AppThemeProvider>
+          <StartupLoader />
+          <ThemeToggle />
+          <SmoothScroll>{children}</SmoothScroll>
+        </AppThemeProvider>
       </body>
     </html>
   );
