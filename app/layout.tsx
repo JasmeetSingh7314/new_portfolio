@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { Geist, Geist_Mono } from "next/font/google";
+import PageNavigator from "./components/PageNavigator";
 import AppThemeProvider from "./contexts/AppThemeProvider";
 import SmoothScroll from "./contexts/SmoothScroll";
 import StartupLoader from "./contexts/StartupLoader";
@@ -41,6 +42,7 @@ export default function RootLayout({
         <AppThemeProvider>
           <StartupLoader />
           <ThemeToggle />
+          <PageNavigator />
           <SmoothScroll>{children}</SmoothScroll>
         </AppThemeProvider>
       </body>

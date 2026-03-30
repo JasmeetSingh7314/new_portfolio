@@ -20,7 +20,7 @@ type ThemeOption = {
 const options: ThemeOption[] = [
   {
     value: "light",
-    label: "Sakura",
+    label: "Light",
     direction: "left",
     icon: <FaSun size={18} />,
   },

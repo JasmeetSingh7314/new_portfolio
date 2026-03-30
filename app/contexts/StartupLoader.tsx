@@ -16,7 +16,7 @@ export default function StartupLoader() {
     }
 
     const startTime = performance.now();
-    const minDuration = 1200;
+    const minDuration = 700;
     let completionTimer: ReturnType<typeof setTimeout> | null = null;
 
     gsap.set(progressRef.current, { scaleX: 0, transformOrigin: "0% 50%" });
@@ -31,12 +31,12 @@ export default function StartupLoader() {
       )
       .to(
         progressRef.current,
-        { scaleX: 1, duration: 1, ease: "power2.out" },
+        { scaleX: 1, duration: 0.4, ease: "power2.out" },
         0.14,
       )
       .to(
         shimmerRef.current,
-        { xPercent: 160, duration: 1.15, ease: "power2.inOut" },
+        { xPercent: 160, duration: 0.8, ease: "power2.inOut" },
         0.1,
       );
 
@@ -99,7 +99,10 @@ export default function StartupLoader() {
     >
       <div
         className="absolute inset-0 opacity-90"
-        style={{ backgroundImage: "var(--hero-glow)", backgroundSize: "180% 180%" }}
+        style={{
+          backgroundImage: "var(--hero-glow)",
+          backgroundSize: "180% 180%",
+        }}
       />
       <div
         className="absolute inset-0 opacity-35"
@@ -157,13 +160,17 @@ export default function StartupLoader() {
             className="max-w-md text-sm leading-7 sm:text-base"
             style={{ color: "var(--hero-text-muted)" }}
           >
-            Preparing motion, textures, and theme-aware atmospheres for the first reveal.
+            Preparing motion, textures, and theme-aware atmospheres for the
+            first reveal.
           </p>
 
           <div className="space-y-3 pt-2">
             <div
               className="relative h-2 overflow-hidden rounded-full"
-              style={{ background: "color-mix(in srgb, var(--hero-panel-bg) 80%, transparent 20%)" }}
+              style={{
+                background:
+                  "color-mix(in srgb, var(--hero-panel-bg) 80%, transparent 20%)",
+              }}
             >
               <div
                 ref={progressRef}

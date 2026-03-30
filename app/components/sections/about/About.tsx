@@ -4,7 +4,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 import TechStack from "./TechStack";
-import { GSDevTools } from "gsap/GSDevTools";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +24,8 @@ const aboutLines = [
 
 export default function About() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const lineRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const copyRef = useRef<HTMLDivElement | null>(null);
+  const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const asideRef = useRef<HTMLDivElement | null>(null);
   const techRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -35,30 +35,39 @@ export default function About() {
     }
 
     const ctx = gsap.context(() => {
-      lineRefs.current.forEach((line, index) => {
-        if (!line) {
-          return;
-        }
+      const letters = letterRefs.current.filter(
+        (letter): letter is HTMLSpanElement => Boolean(letter),
+      );
+
+      if (copyRef.current && letters.length) {
+        gsap.set(letters, {
+          alpha: 0.1,
+        });
 
         gsap.fromTo(
-          line,
+          letters,
           {
-            opacity: 0.18,
-            color: "var(--muted)",
+            alpha: 0.1,
           },
           {
-            opacity: 1,
-            color: aboutLines[index].activeColor,
+            color: (_, target) =>
+              target.getAttribute("data-active-color") ?? "var(--hero-text)",
             ease: "none",
+            alpha: 1,
+            duration: 0.2,
+            stagger: {
+              each: 0.1,
+              from: "start",
+            },
             scrollTrigger: {
-              trigger: line,
-              start: "top 18%",
-              end: "bottom 90%",
+              trigger: copyRef.current,
+              start: "top 89%",
+              end: "top 30%",
               scrub: true,
             },
           },
         );
-      });
+      }
 
       //   if (asideRef.current) {
       //     gsap.fromTo(
@@ -128,16 +137,17 @@ export default function About() {
     }, sectionRef);
 
     return () => {
-      GSDevTools.create();
       ctx.revert();
     };
   }, []);
+
+  let letterIndex = 0;
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="mx-auto w-full max-w-full px-6 pb-64 pt-4 sm:px-6 lg:px-10"
+      className="mx-auto w-full max-w-full px-6  mb-32 pt-4 sm:px-6 lg:px-10"
     >
       {/* shadow-[0_20px_80px_rgba(20,18,16,0.1)] backdrop-blur-xl */}
       <div
@@ -174,20 +184,47 @@ export default function About() {
               </h2>
             </div>
 
-            <div className="space-y-6">
+            <div ref={copyRef} className="space-y-6">
               {aboutLines.map((line, index) => (
                 <p
                   key={line.text}
-                  ref={(node) => {
-                    lineRefs.current[index] = node;
-                  }}
+                  aria-label={line.text}
                   className="max-w-4xl text-[clamp(1.55rem,3.4vw,3.6rem)] font-black leading-[1.04] tracking-[-0.055em]"
                   style={{
-                    opacity: 0.18,
                     color: "var(--muted)",
                   }}
                 >
-                  {line.text}
+                  {Array.from(line.text).map((character, characterIndex) => {
+                    if (character === " ") {
+                      return (
+                        <span
+                          key={`${line.text}-${characterIndex}-space`}
+                          aria-hidden="true"
+                          className="inline-block w-[0.28em]"
+                        />
+                      );
+                    }
+
+                    const currentLetterIndex = letterIndex;
+                    letterIndex += 1;
+
+                    return (
+                      <span
+                        key={`${line.text}-${characterIndex}`}
+                        ref={(node) => {
+                          letterRefs.current[currentLetterIndex] = node;
+                        }}
+                        aria-hidden="true"
+                        data-active-color={line.activeColor}
+                        className="inline-block will-change-[color]"
+                        style={{
+                          color: "var(--muted)",
+                        }}
+                      >
+                        {character}
+                      </span>
+                    );
+                  })}
                 </p>
               ))}
             </div>
