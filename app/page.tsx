@@ -2,10 +2,9 @@ import About from "./components/sections/about/About";
 import Banner from "./components/sections/Banner/Banner";
 import Experience from "./components/sections/Experience";
 import Footer from "./components/sections/Footer";
-import IBG from "./components/effects/IBG";
+
 import PageBackdrop from "./components/PageBackdrop";
 import Projects from "./components/sections/Projects";
-import YinYang from "./components/effects/Yinyang";
 
 export default function Home() {
   return (
@@ -19,7 +18,7 @@ export default function Home() {
           <Experience />
           <Projects />
           <Footer />
-          <YinYang />
+          {/* <YinYang /> */}
         </div>
       </div>
     </main>

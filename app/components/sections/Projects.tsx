@@ -1,17 +1,21 @@
 "use client";
 
-import { Badge, Group, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
 import type { StaticImageData } from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { MutableRefObject } from "react";
 import { useEffect, useRef } from "react";
-import admImage from "../../assets/projects/ADM.jpg";
+import admImage from "../../assets/projects/adm.png";
 import owlImage from "../../assets/projects/Owl.png";
 import stsImage from "../../assets/projects/sts.jpg";
 import tutorAiImage from "../../assets/projects/tutorai.png";
 
 gsap.registerPlugin(ScrollTrigger);
+
+type ProjectMetric = {
+  value: string;
+  label: string;
+};
 
 type Project = {
   title: string;
@@ -19,247 +23,223 @@ type Project = {
   year: string;
   description: string;
   stack: string[];
+  metrics: ProjectMetric[];
   image: StaticImageData;
   imagePosition?: string;
+  accent: string;
 };
-
-type BentoVariant = "feature" | "wide" | "tile";
 
 const projects: Project[] = [
   {
-    title: "Owl",
-    category: "Web3",
-    year: "2023",
-    description:
-      "A dApp for video game distribution employing NFT licensing. This led us to securing the highest position out of 12,000 participants in the esteemed TezAsia 2k23 hackathon",
-    stack: ["Next.js", "Wallets", "GSAP"],
-    image: owlImage,
-    imagePosition: "center center",
-  },
-
-  {
-    title: "STS",
-    category: "Data Interface",
-    year: "2023",
-    description:
-      "A support ticket system using round-robin assignment and dynamic agent allocation to streamline resolution and keep operations running at optimal efficiency.",
-    stack: ["Dashboards", "Systems", "UI"],
-    image: stsImage,
-    imagePosition: "center center",
-  },
-  {
-    title: "ADM",
-    category: "Scheduling",
-    year: "2023",
-    description:
-      "A full-stack ad platform personalizing campaigns to user demographics via reverse geo-coding — featuring a self-serve dashboard for seamless ad creation and management.",
-    stack: ["Planning", "Product", "UX"],
-    image: admImage,
-    imagePosition: "center center",
-  },
-  {
     title: "Tutor.ai",
-    category: "AI",
-    year: "2024",
+    category: "AI Learning",
+    year: "2025",
     description:
-      "An adaptive learning platform generating personalized lessons, quizzes, and gamified experiences per user. Built with ReactJS, Node.js, and Python — integrating OpenRouter and Deepseek to overcome API limitations and deliver precision AI-driven education.",
+      "An adaptive learning platform that generated lessons, quizzes, and progression paths per user. The UI had to make AI output feel trustworthy, structured, and usable instead of overwhelming.",
     stack: ["React", "AI UX", "Frontend"],
+    metrics: [
+      { value: "AI", label: "lesson generation" },
+      { value: "Full", label: "learning loop" },
+    ],
     image: tutorAiImage,
     imagePosition: "center center",
+    accent: "#5ed3f3",
+  },
+  {
+    title: "Owl",
+    category: "Web3 Product",
+    year: "2024",
+    description:
+      "A game-distribution dApp that turned NFT licensing into a cleaner player flow. The project blended wallet onboarding, motion-led storytelling, and a sharper release experience for a hackathon-scale launch.",
+    stack: ["Next.js", "Wallets", "GSAP"],
+    metrics: [
+      { value: "12k+", label: "hackathon participants" },
+      { value: "Top 1", label: "tezasia finish" },
+    ],
+    image: owlImage,
+    imagePosition: "center center",
+    accent: "#bc8cff",
+  },
+
+  {
+    title: "ADM",
+    category: "Campaign Platform",
+    year: "2023",
+    description:
+      "A full-stack ad platform with reverse geocoding and self-serve campaign creation. The challenge was translating targeting logic and scheduling complexity into a product teams could use without friction.",
+    stack: ["Planning", "Product", "UX"],
+    metrics: [
+      { value: "Geo", label: "personalized delivery" },
+      { value: "Self", label: "serve workflow" },
+    ],
+    image: admImage,
+    imagePosition: "center center",
+    accent: "#ff9d7d",
   },
 ];
 
-const bentoPattern: BentoVariant[] = [
-  "feature",
-  "tile",
-  "tile",
-  "wide",
-  "tile",
-  "tile",
-];
-
-const variantClasses: Record<BentoVariant, string> = {
-  feature: "md:col-span-2 md:row-span-2 xl:col-span-2 xl:row-span-2",
-  wide: "md:col-span-2 md:row-span-1 xl:col-span-2 xl:row-span-1",
-  tile: "md:col-span-1 md:row-span-1",
-};
-
-function getVariant(index: number): BentoVariant {
-  return bentoPattern[index % bentoPattern.length];
-}
-
-function ProjectCard({
+function ProjectPlate({
   project,
   index,
-  overlayRefs,
-  detailsRefs,
-  imageRefs,
+  plateRefs,
 }: {
   project: Project;
   index: number;
-  overlayRefs: MutableRefObject<(HTMLDivElement | null)[]>;
-  detailsRefs: MutableRefObject<(HTMLDivElement | null)[]>;
-  imageRefs: MutableRefObject<(HTMLDivElement | null)[]>;
+  plateRefs: React.MutableRefObject<(HTMLArticleElement | null)[]>;
 }) {
-  const variant = getVariant(index);
-  const isFeature = variant === "feature";
-
-  const animateHover = (entering: boolean) => {
-    const overlay = overlayRefs.current[index];
-    const details = detailsRefs.current[index];
-    const image = imageRefs.current[index];
-
-    if (!overlay || !details || !image) {
-      return;
-    }
-
-    gsap.to(overlay, {
-      yPercent: entering ? 0 : -100,
-      duration: entering ? 0.48 : 0.36,
-      ease: "power3.out",
-      overwrite: "auto",
-    });
-
-    gsap.to(details, {
-      autoAlpha: entering ? 1 : 0,
-      y: entering ? 0 : 24,
-      duration: entering ? 0.32 : 0.24,
-      delay: entering ? 0.08 : 0,
-      ease: "power3.out",
-      overwrite: "auto",
-    });
-
-    gsap.to(image, {
-      scale: 1,
-      duration: 0.78,
-      ease: "power3.out",
-      overwrite: "auto",
-    });
-  };
-  // shadow-[0_18px_60px_rgba(20,18,16,0.08)]
   return (
     <article
-      data-project-card
-      className={`group project-cut-card relative h-full min-h-[21rem] overflow-hidden rounded-[1.6rem] transition-transform duration-300 hover:-translate-y-1 ${variantClasses[variant]}`}
-      onMouseEnter={() => animateHover(true)}
-      onMouseLeave={() => animateHover(false)}
-      onFocus={() => animateHover(true)}
-      onBlur={() => animateHover(false)}
-      tabIndex={0}
+      ref={(node) => {
+        plateRefs.current[index] = node;
+      }}
+      className="absolute inset-0 group overflow-hidden rounded-[1.9rem] border p-4 sm:p-5 xl:p-6"
+      style={{
+        zIndex: projects.length - index,
+        background:
+          "linear-gradient(180deg, rgba(9,9,11,0.96) 0%, rgba(12,12,14,0.985) 100%)",
+        borderColor:
+          "color-mix(in srgb, var(--hero-border) 88%, rgba(255,255,255,0.12) 12%)",
+        boxShadow: "0 20px 60px rgba(8, 8, 10, 0.18)",
+      }}
     >
-      <div
-        className="project-cut-card__border absolute inset-0"
-        // style={{
-        //   background:
-        //     "color-mix(in srgb, var(--hero-border) 88%, rgba(255,255,255,0.18) 12%)",
-        // }}
-      />
-
-      <div className="project-cut-card__inner absolute inset-[1px] overflow-hidden">
-        <div
-          ref={(node) => {
-            imageRefs.current[index] = node;
-          }}
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${project.image.src})`,
-            backgroundPosition: project.imagePosition ?? "center center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            transformOrigin: "50% 50%",
-          }}
-        />
-
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(10,10,12,0.04) 0%, rgba(10,10,12,0.16) 100%)",
-          }}
-        />
-
-        <div
-          ref={(node) => {
-            overlayRefs.current[index] = node;
-          }}
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(13,13,16,0.24) 0%, rgba(13,13,16,0.78) 45%, rgba(13,13,16,0.92) 100%)",
-          }}
-        />
-
-        <div
-          ref={(node) => {
-            detailsRefs.current[index] = node;
-          }}
-          className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6"
-        >
-          <div className="flex items-start justify-between gap-4">
-            <Text
-              className="text-[0.68rem] font-semibold uppercase tracking-[0.3em]"
-              style={{ color: "rgba(245, 248, 251, 0.82)" }}
+      <div className="grid h-full gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(20rem,1.18fr)] lg:items-stretch xl:gap-8">
+        <div className="flex min-w-0 flex-col justify-between gap-8 px-2 py-2 sm:px-4 sm:py-4">
+          <div className="space-y-5">
+            <p
+              className="text-[0.68rem] font-semibold uppercase tracking-[0.28em]"
+              style={{ color: "rgba(245,248,251,0.42)" }}
             >
               {project.category}
-            </Text>
+            </p>
 
-            <span
-              className={`font-black tracking-[-0.07em] ${
-                isFeature ? "text-4xl" : "text-3xl"
-              }`}
-              style={{ color: "#f5f8fb" }}
-            >
-              {project.year}
-            </span>
-          </div>
-
-          <div className="space-y-4">
-            <div className="space-y-2">
+            <div className="space-y-4">
               <h3
-                className={`font-black uppercase tracking-[-0.05em] ${
-                  isFeature ? "text-[2rem]" : "text-2xl"
-                }`}
+                className="max-w-[12ch] text-[clamp(2rem,5vw,4rem)] font-black leading-[0.92] tracking-[-0.08em]"
                 style={{ color: "#f5f8fb" }}
               >
                 {project.title}
               </h3>
+
               <Text
-                className={
-                  isFeature
-                    ? "max-w-xl text-base leading-7"
-                    : "text-sm leading-6"
-                }
-                style={{ color: "rgba(241, 244, 248, 0.78)" }}
+                className="max-w-[34rem] text-[0.95rem] leading-7 sm:text-base sm:leading-8"
+                style={{ color: "rgba(241,244,248,0.7)" }}
               >
-                {isFeature || variant === "wide" ? project.description : ""}
+                {project.description}
               </Text>
             </div>
+          </div>
 
-            <Group
-              gap="xs"
-              className={`flex-wrap ${isFeature ? "mb-26" : "mb-12"}`}
-            >
-              {project.stack.map((item) => (
-                <Badge
-                  key={item}
-                  radius="xl"
-                  variant="light"
-                  styles={{
-                    root: {
-                      background: "rgba(245, 248, 251, 0.08)",
-                      border: "1px solid rgba(245, 248, 251, 0.14)",
-                      color: "#f5f8fb",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.18em",
-                      fontWeight: 700,
-                      paddingInline: "0.75rem",
-                    },
-                  }}
-                >
-                  {item}
-                </Badge>
+          <div className="space-y-6">
+            <div className="flex flex-wrap gap-6 sm:gap-10">
+              {project.metrics.map((metric) => (
+                <div key={metric.label} className="min-w-[8rem] space-y-1">
+                  <p
+                    className="text-3xl font-black tracking-[-0.08em] sm:text-4xl"
+                    style={{ color: "#f5f8fb" }}
+                  >
+                    {metric.value}
+                  </p>
+                  <p
+                    className="text-[0.64rem] font-semibold uppercase tracking-[0.22em]"
+                    style={{ color: "rgba(245,248,251,0.46)" }}
+                  >
+                    {metric.label}
+                  </p>
+                </div>
               ))}
-            </Group>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.24em]"
+                style={{ color: "#f5f8fb" }}
+              >
+                View case study
+                <span aria-hidden="true" className="text-base leading-none">
+                  {">"}
+                </span>
+              </a>
+
+              <span
+                className="text-[0.62rem] uppercase tracking-[0.2em]"
+                style={{ color: "rgba(245,248,251,0.34)" }}
+              >
+                {project.stack.join(" / ")}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="relative min-h-[19rem] overflow-hidden rounded-[1.35rem] lg:min-h-[33rem]">
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(180deg, color-mix(in srgb, ${project.accent} 76%, transparent) 0%, color-mix(in srgb, ${project.accent} 42%, rgba(12,12,14,0.2) 58%) 32%, rgba(12,12,14,0.06) 100%)`,
+            }}
+          />
+
+          <div
+            className="absolute inset-0 opacity-55"
+            style={{
+              background:
+                "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.16) 0%, transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 30%)",
+            }}
+          />
+
+          <div
+            className="absolute left-[8%] top-[18%] h-[68%] w-[24%] overflow-hidden rounded-[2rem] border border-white/8 bg-black/70 shadow-[0_20px_60px_rgba(8,8,10,0.32)] backdrop-blur-sm"
+            style={{
+              transform: `translateY(${index % 2 === 0 ? "4%" : "10%"})`,
+            }}
+          >
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url(${project.image.src})`,
+                backgroundPosition: project.imagePosition ?? "center center",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                filter: "brightness(0.6)",
+                transform: "scale(1.14)",
+              }}
+            />
+          </div>
+
+          <div className="absolute right-[6%] top-[5%] h-[94%] w-[82%] overflow-hidden rounded-[1.5rem] border border-white/8 bg-black/82 shadow-[0_26px_80px_rgba(6,6,8,0.38)]">
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url(${project.image.src})`,
+                backgroundPosition: project.imagePosition ?? "center center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+              }}
+            />
+
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(10,10,12,0.02) 0%, rgba(10,10,12,0.24) 100%)",
+              }}
+            />
+
+            <div
+              className="absolute left-3 top-3 h-6 w-6 border-l border-t"
+              style={{ borderColor: "rgba(255,255,255,0.12)" }}
+            />
+
+            <div
+              className="absolute bottom-4 right-4 rounded-full px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.2em]"
+              style={{
+                color: "#f5f8fb",
+                background: "rgba(8,8,10,0.48)",
+                border: "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              {project.year}
+            </div>
           </div>
         </div>
       </div>
@@ -269,41 +249,97 @@ function ProjectCard({
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const overlayRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const detailsRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const plateRefs = useRef<(HTMLArticleElement | null)[]>([]);
 
   useEffect(() => {
-    if (!sectionRef.current) {
+    if (!sectionRef.current || !stageRef.current) {
       return;
     }
 
     const ctx = gsap.context(() => {
-      gsap.set(overlayRefs.current.filter(Boolean), {
-        yPercent: -100,
-      });
-
-      gsap.set(detailsRefs.current.filter(Boolean), {
-        autoAlpha: 0,
-        y: 24,
-      });
-
-      gsap.fromTo(
-        "[data-project-card]",
-        {
-          x: -72,
-        },
-        {
-          x: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 72%",
-          },
-        },
+      const plates = plateRefs.current.filter(
+        (plate): plate is HTMLArticleElement => Boolean(plate),
       );
+
+      if (!plates.length) {
+        return;
+      }
+
+      gsap.set(plates, {
+        autoAlpha: 0,
+        yPercent: 24,
+        scale: 1.14,
+        rotateX: -8,
+        filter: "blur(12px)",
+        transformOrigin: "50% 50%",
+        force3D: true,
+      });
+
+      gsap.set(plates[0], {
+        autoAlpha: 1,
+        yPercent: 0,
+        scale: 1,
+        rotateX: 0,
+        filter: "blur(0px)",
+      });
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: stageRef.current,
+          start: "top top+=88",
+          end: () =>
+            `+=${Math.max(plates.length - 1, 1) * stageRef.current!.offsetHeight * 1.18}`,
+          scrub: 1.15,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      plates.forEach((plate, index) => {
+        if (index === plates.length - 1) {
+          return;
+        }
+
+        const nextPlate = plates[index + 1];
+
+        timeline
+          .to(
+            plate,
+            {
+              yPercent: -12,
+              scale: 0.8,
+              rotateX: 8,
+              autoAlpha: 0,
+              filter: "blur(14px)",
+              ease: "power2.inOut",
+              duration: 1,
+            },
+            index,
+          )
+          .fromTo(
+            nextPlate,
+            {
+              yPercent: 24,
+              scale: 1.14,
+              rotateX: -8,
+              autoAlpha: 0,
+              filter: "blur(12px)",
+            },
+            {
+              yPercent: 0,
+              scale: 1,
+              rotateX: 0,
+              autoAlpha: 1,
+              filter: "blur(0px)",
+              ease: "power3.out",
+              duration: 1,
+            },
+            index + 0.06,
+          );
+      });
     }, sectionRef);
 
     return () => {
@@ -341,33 +377,34 @@ export default function Projects() {
               Selected Work
             </p>
             <h2
-              className="max-w-3xl text-3xl font-black uppercase leading-[0.95] tracking-[-0.06em] sm:text-5xl lg:text-6xl"
+              className="max-w-3xl text-[clamp(2rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-[-0.06em]"
               style={{ color: "var(--hero-text)" }}
             >
-              Image-first project cards with details revealed on hover.
+              Scroll through project plates, one story at a time.
             </h2>
           </div>
 
           <Text
-            className="max-w-md text-sm leading-7 sm:text-base"
+            className="max-w-md text-[0.9rem] leading-7 sm:text-base"
             style={{ color: "var(--hero-text-muted)" }}
           >
-            The artwork stays visible by default, and a translucent panel drops
-            in only when you engage with a card.
+            Each plate sits in one fixed stage. As you scroll, the current
+            project lifts, recedes, and clears out while the next plate takes
+            its place. Scrolling back up reverses the whole sequence.
           </Text>
         </div>
 
-        <div className="grid gap-5 md:grid-flow-dense md:auto-rows-[18rem] md:grid-cols-2 xl:auto-rows-[22rem] xl:grid-cols-4">
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={`${project.title}-${index}`}
-              project={project}
-              index={index}
-              overlayRefs={overlayRefs}
-              detailsRefs={detailsRefs}
-              imageRefs={imageRefs}
-            />
-          ))}
+        <div ref={stageRef} className="relative h-[76vh] min-h-[36rem]">
+          <div className="relative h-full">
+            {projects.map((project, index) => (
+              <ProjectPlate
+                key={`${project.title}-${index}`}
+                project={project}
+                index={index}
+                plateRefs={plateRefs}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

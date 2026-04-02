@@ -77,7 +77,7 @@ function ExperienceDetails({
       }}
     >
       <Text
-        className="max-w-2xl text-base leading-8 sm:text-lg"
+        className="max-w-2xl text-[0.23rem] leading-7 sm:text-[0.98rem] sm:leading-7 lg:text-base lg:leading-8"
         style={{ color: "var(--hero-text-muted)" }}
       >
         {summary}
@@ -99,7 +99,7 @@ function ExperienceDetails({
               style={{ background: "var(--hero-accent)" }}
             />
             <Text
-              className="text-sm leading-7 sm:text-[0.98rem]"
+              className="text-[0.82rem] leading-6 sm:text-sm sm:leading-6 lg:text-[0.95rem] lg:leading-7"
               style={{ color: "var(--hero-text)" }}
             >
               {item}
@@ -123,6 +123,7 @@ function ExperienceDetails({
                 letterSpacing: "0.18em",
                 fontWeight: 700,
                 paddingInline: "0.8rem",
+                fontSize: "0.66rem",
               },
             }}
           >
@@ -163,7 +164,9 @@ export default function Experience() {
 
     const ctx = gsap.context(() => {
       positionTimelineLine = () => {
-        const bullets = shell.querySelectorAll<HTMLElement>(".experience-timeline-bullet");
+        const bullets = shell.querySelectorAll<HTMLElement>(
+          ".experience-timeline-bullet",
+        );
 
         if (!bullets.length) {
           return;
@@ -174,8 +177,7 @@ export default function Experience() {
         const lastRect = bullets[bullets.length - 1].getBoundingClientRect();
         const left = firstRect.left - shellRect.left + firstRect.width / 2 - 1;
         const top = firstRect.top - shellRect.top + firstRect.height / 2;
-        const height =
-          lastRect.top - shellRect.top + lastRect.height / 2 - top;
+        const height = lastRect.top - shellRect.top + lastRect.height / 2 - top;
 
         gsap.set([baseLine, fillLine], {
           x: left,
@@ -268,7 +270,7 @@ export default function Experience() {
               Experience
             </p>
             <h2
-              className="max-w-3xl text-3xl font-black uppercase leading-[0.95] tracking-[-0.06em] sm:text-5xl lg:text-6xl"
+              className="max-w-3xl text-[clamp(2rem,6vw,4.4rem)] font-black uppercase leading-[0.95] tracking-[-0.06em]"
               style={{ color: "var(--hero-text)" }}
             >
               Building work where visuals, interaction, and execution move
@@ -277,7 +279,7 @@ export default function Experience() {
           </div>
 
           <Text
-            className="max-w-md text-sm leading-7 sm:text-base"
+            className="max-w-md text-[0.88rem] leading-6 sm:text-sm sm:leading-7 lg:text-[0.98rem]"
             style={{ color: "var(--hero-text-muted)" }}
           >
             A modular timeline of the roles, experiments, and frontend work that
@@ -356,19 +358,19 @@ export default function Experience() {
                       {item.period}
                     </Text>
                     <Text
-                      className="text-2xl font-black uppercase tracking-[-0.05em]"
+                      className="text-[1.35rem] font-black uppercase tracking-[-0.05em] sm:text-[1.6rem] lg:text-[1.85rem]"
                       style={{ color: "var(--hero-text)" }}
                     >
                       {item.company}
                     </Text>
                     <Text
-                      className="text-sm font-medium uppercase tracking-[0.18em]"
+                      className="text-[0.72rem] font-medium uppercase tracking-[0.18em] sm:text-[0.78rem] lg:text-[0.82rem]"
                       style={{ color: "var(--hero-accent)" }}
                     >
                       {item.role}
                     </Text>
                     <Text
-                      className="text-sm"
+                      className="text-[0.82rem] sm:text-sm"
                       style={{ color: "var(--hero-text-muted)" }}
                     >
                       {item.location}

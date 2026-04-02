@@ -35,6 +35,9 @@ export default function About() {
     }
 
     const ctx = gsap.context(() => {
+      const viewportWidth = window.innerWidth;
+      const startX = Math.min(viewportWidth * 0.42, 360);
+      const verticalSpread = viewportWidth < 640 ? 140 : 220;
       const letters = letterRefs.current.filter(
         (letter): letter is HTMLSpanElement => Boolean(letter),
       );
@@ -89,8 +92,7 @@ export default function About() {
       techRefs.current.forEach((chip, index) => {
         if (!chip) return;
 
-        const startX = 600;
-        const startY = index % 2 === 0 ? -400 : 300;
+        const startY = index % 2 === 0 ? -verticalSpread : verticalSpread;
 
         gsap.fromTo(
           chip,
@@ -147,11 +149,11 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="mx-auto w-full max-w-full px-6  mb-32 pt-4 sm:px-6 lg:px-10"
+      className="mx-auto mb-24 w-full max-w-full px-4 pt-4 sm:px-6 lg:mb-32 lg:px-10"
     >
       {/* shadow-[0_20px_80px_rgba(20,18,16,0.1)] backdrop-blur-xl */}
       <div
-        className="relative overflow-hidden rounded-[2.2rem] px-6 py-8  sm:px-8 sm:py-10 lg:px-10 lg:py-12"
+        className="relative overflow-hidden rounded-[2.2rem] px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-12"
         style={
           {
             //   background: "var(--hero-shell)",
@@ -167,7 +169,7 @@ export default function About() {
           }}
         />
 
-        <div className="grid gap-10 lg:ml-80 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.7fr)] lg:gap-14">
+        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(16rem,0.92fr)] lg:gap-12 xl:grid-cols-[minmax(0,1.02fr)_minmax(20rem,0.92fr)] xl:gap-24 2xl:px-74 ">
           <div className="space-y-8">
             <div className="space-y-3">
               <p
@@ -189,7 +191,7 @@ export default function About() {
                 <p
                   key={line.text}
                   aria-label={line.text}
-                  className="max-w-4xl text-[clamp(1.55rem,3.4vw,3.6rem)] font-black leading-[1.04] tracking-[-0.055em]"
+                  className="max-w-4xl text-[clamp(1.28rem,5.2vw,3.45rem)] font-black leading-[1.04] tracking-[-0.055em] sm:text-[clamp(1.45rem,4.7vw,3.55rem)]"
                   style={{
                     color: "var(--muted)",
                   }}

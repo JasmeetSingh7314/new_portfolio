@@ -37,8 +37,8 @@ const ringConfig = [
 
 const ecosystemConfigs = [
   {
-    anchor: { x: 0.18, y: 0.2 },
-    visualScale: 1.56,
+    anchor: { x: 0.18, y: 0.1 },
+    visualScale: 3,
     strokeMix: 0.52,
     pulseDuration: 2.8,
     wanderX: 44,
@@ -47,8 +47,8 @@ const ecosystemConfigs = [
     wanderPhase: 0.3,
   },
   {
-    anchor: { x: 0.18, y: 0.21 },
-    visualScale: 1.34,
+    anchor: { x: 0.18, y: 0.1 },
+    visualScale: 3,
     strokeMix: 0.38,
     pulseDuration: 3.1,
     wanderX: 36,
@@ -57,8 +57,8 @@ const ecosystemConfigs = [
     wanderPhase: 1.4,
   },
   {
-    anchor: { x: 0.18, y: 0.21 },
-    visualScale: 1.34,
+    anchor: { x: 0.18, y: 0.1 },
+    visualScale: 3,
     strokeMix: 0.38,
     pulseDuration: 3.1,
     wanderX: 36,
@@ -67,8 +67,8 @@ const ecosystemConfigs = [
     wanderPhase: 1.4,
   },
   {
-    anchor: { x: 0.18, y: 0.21 },
-    visualScale: 1.34,
+    anchor: { x: 0.18, y: 0.1 },
+    visualScale: 3,
     strokeMix: 0.38,
     pulseDuration: 3.1,
     wanderX: 36,
@@ -79,8 +79,8 @@ const ecosystemConfigs = [
 ] as const;
 
 const CONTOUR_POINT_COUNT = 100;
-const CONTOUR_REPEL_DISTANCE = 30;
-const CONTOUR_REPEL_STRENGTH = 0.12;
+const CONTOUR_REPEL_DISTANCE = 40;
+const CONTOUR_REPEL_STRENGTH = 0.1;
 const CONTOUR_NEIGHBOR_FALLOFF = [1, 0.88, 0.72, 0.48, 0.23] as const;
 const POINT_RETURN_STRENGTH = 0.01;
 const POINT_SMOOTH_STRENGTH = 0.07;
@@ -717,7 +717,7 @@ export default function Footer() {
       className="mx-auto w-full max-w-[95rem] px-4 pb-10 pt-4 sm:px-6 lg:px-10"
     >
       <div
-        className="relative min-h-[75rem] overflow-hidden rounded-[2.2rem] px-6 py-8 shadow-[0_20px_80px_rgba(20,18,16,0.1)] backdrop-blur-xl sm:px-8 sm:py-10 lg:px-10 lg:py-12"
+        className="relative min-h-[20rem] overflow-hidden rounded-[2.2rem] px-6 py-8 shadow-[0_20px_80px_rgba(20,18,16,0.1)] backdrop-blur-xl sm:px-8 sm:py-10 lg:px-10 lg:py-12"
         style={{
           background: "var(--hero-shell)",
           border: "1px solid var(--hero-border)",
@@ -742,7 +742,7 @@ export default function Footer() {
 
           <svg
             className="absolute inset-0 h-full w-full"
-            viewBox="0 0 1000 600"
+            viewBox="100 100 100 100"
             preserveAspectRatio="none"
           >
             {ecosystemConfigs.map((config, clusterIndex) => (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { FaGitAlt, FaNodeJs, FaReact } from "react-icons/fa";
 import {
@@ -70,15 +70,19 @@ const TechStack = ({ asideRef, techRefs }: any) => {
     },
   ] as const;
 
-  useEffect(() => {}, []);
   return (
-    <div ref={asideRef} className="grid gap-5 self-end mr-60 h-full">
+    <div
+      ref={asideRef}
+      className="grid h-full w-full max-w-[34rem] gap-5 self-start justify-self-center lg:max-w-none"
+    >
       <div
-        className="rounded-[1.6rem] h-full px-5 py-5 "
-        style={{
-        //   background: "var(--hero-panel-bg)",
-        //   border: "1px solid var(--hero-border)",
-        }}
+        className="h-full w-full rounded-[1.6rem] px-2 py-2 sm:px-3 sm:py-3"
+        style={
+          {
+            //   background: "var(--hero-panel-bg)",
+            //   border: "1px solid var(--hero-border)",
+          }
+        }
       >
         {/* <p
           className="text-[0.68rem] font-semibold uppercase tracking-[0.3em]"
@@ -93,8 +97,7 @@ const TechStack = ({ asideRef, techRefs }: any) => {
           The stack comes in from the right and settles here as the About
           section lands.
         </p> */}
-
-        <div className="mt-6 grid grid-cols-2 gap-16 sm:grid-cols-3">
+        <div className="mt-4 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:mt-6 lg:gap-x-8 lg:gap-y-12">
           {techStack.map((tech, index) => (
             <div
               key={tech.name}
@@ -105,7 +108,7 @@ const TechStack = ({ asideRef, techRefs }: any) => {
               style={{ opacity: 0 }}
             >
               <div
-                className="flex h-30 w-30 items-center justify-center rounded-full shadow-[0_16px_40px_rgba(20,18,16,0.1)]"
+                className="flex h-20 w-20 items-center justify-center rounded-full shadow-[0_16px_40px_rgba(20,18,16,0.1)] sm:h-24 sm:w-24 lg:h-28 lg:w-28"
                 style={{
                   background:
                     "color-mix(in srgb, var(--hero-shell) 78%, white 22%)",
@@ -116,7 +119,7 @@ const TechStack = ({ asideRef, techRefs }: any) => {
                 {tech.icon}
               </div>
               <span
-                className="text-[0.68rem] font-semibold uppercase tracking-[0.24em]"
+                className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] sm:text-[0.68rem]"
                 style={{ color: "var(--hero-text)" }}
               >
                 {tech.name}
