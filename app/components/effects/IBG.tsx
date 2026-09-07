@@ -410,12 +410,12 @@ export default function IBG({ className }: IBGProps) {
     controls.update();
 
     const ambientLight = new THREE.AmbientLight(
-      colorScheme === "dark" ? "#ffffff" : "#fff5f8",
+      colorScheme === "dark" ? "#ffffff" : "#ffffff",
       colorScheme === "dark" ? 1.6 : 1.3,
     );
     const hemiLight = new THREE.HemisphereLight(
-      colorScheme === "dark" ? "#d7e6ff" : "#fff8fc", // sky color
-      colorScheme === "dark" ? "#162036" : "#f5c8da", // ground color
+      colorScheme === "dark" ? "#d7e6ff" : "#f0f0f0", // sky color
+      colorScheme === "dark" ? "#162036" : "#8a8a8a", // ground color
       colorScheme === "dark" ? 1.05 : 0.8,
     );
     const keyLight = new THREE.DirectionalLight(
@@ -425,7 +425,7 @@ export default function IBG({ className }: IBGProps) {
     keyLight.position.set(4, 10, 6);
 
     const fillLight = new THREE.DirectionalLight(
-      colorScheme === "dark" ? "#8ba7d6" : "#f6a7bf",
+      colorScheme === "dark" ? "#8ba7d6" : "#8c8c8c",
       colorScheme === "dark" ? 0.95 : 0.7,
     );
     fillLight.position.set(-6, 5, -4);
@@ -459,7 +459,7 @@ export default function IBG({ className }: IBGProps) {
 
       // Draw dots
       context.fillStyle =
-        colorScheme === "dark" ? NODE_COLOR : "rgb(242,90,90,0.4)";
+        colorScheme === "dark" ? NODE_COLOR : "rgba(48,48,48,0.28)";
 
       nodes.forEach((node) => {
         context.beginPath();

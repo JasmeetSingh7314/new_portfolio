@@ -84,20 +84,19 @@ const TechStack = ({ asideRef, techRefs }: any) => {
           }
         }
       >
-        {/* <p
+        <p
           className="text-[0.68rem] font-semibold uppercase tracking-[0.3em]"
           style={{ color: "var(--hero-panel-caption)" }}
         >
-          Tech stack
+          Toolkit
         </p>
         <p
           className="mt-3 text-sm leading-7"
           style={{ color: "var(--hero-text-muted)" }}
         >
-          The stack comes in from the right and settles here as the About
-          section lands.
-        </p> */}
-        <div className="mt-4 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:mt-6 lg:gap-x-8 lg:gap-y-12">
+          Tools I use to make thoughtful interfaces fast, reliable, and fun to use.
+        </p>
+        <div className="mt-7 grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 lg:gap-y-12">
           {techStack.map((tech, index) => (
             <div
               key={tech.name}

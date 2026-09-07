@@ -9,15 +9,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const aboutLines = [
   {
-    text: "I build at the intersection of Frontend, AI, and Web3 from real-time collaboration tools to blockchain gaming marketplaces.",
+    text: "I build expressive digital products at the intersection of frontend, AI, and Web3.",
     activeColor: "var(--hero-text)",
   },
   {
-    text: "I care about the details others skip.",
+    text: "From systems to motion, I care about the details that make an interface feel alive.",
     activeColor: "var(--hero-text)",
   },
   {
-    text: "When I'm not shipping, I'm behind a camera chasing wildlife or deep in a rabbit hole about history and emerging tech.",
+    text: "My 3D creature work is the same instinct in another medium: shape, texture, light, and personality.",
     activeColor: "var(--hero-accent)",
   },
 ];
@@ -182,7 +182,7 @@ export default function About() {
                 className="max-w-3xl text-3xl font-black uppercase leading-[0.95] tracking-[-0.06em] sm:text-5xl lg:text-6xl"
                 style={{ color: "var(--hero-text)" }}
               >
-                {/* Frontend systems with care, motion, and a bit of edge. */}
+                Building the digital side of strange ideas.
               </h2>
             </div>
 

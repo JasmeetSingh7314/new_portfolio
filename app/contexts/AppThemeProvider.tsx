@@ -8,20 +8,20 @@ import {
 
 const theme = createTheme({
   fontFamily: "var(--font-geist-sans), sans-serif",
-  primaryColor: "sakura",
+  primaryColor: "graphite",
   defaultRadius: "xl",
   colors: {
-    sakura: [
-      "#fff2f7",
-      "#ffe4ef",
-      "#ffc9de",
-      "#ffadc9",
-      "#ff90b5",
-      "#fb77a4",
-      "#eb5d8f",
-      "#cd4677",
-      "#a93761",
-      "#872c4d",
+    graphite: [
+      "#f7f7f7",
+      "#eeeeee",
+      "#dedede",
+      "#c7c7c7",
+      "#adadad",
+      "#8c8c8c",
+      "#707070",
+      "#5c5c5c",
+      "#414141",
+      "#252525",
     ],
     spectre: [
       "#eef1f5",

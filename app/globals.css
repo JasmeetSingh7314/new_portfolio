@@ -1,54 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fff8fc;
-  --foreground: #23131d;
+  --background: #f0f0f0;
+  --foreground: #111111;
   --panel: rgba(255, 255, 255, 0.62);
   --panel-strong: rgba(255, 255, 255, 0.76);
-  --muted: #785f6f;
-  --border-soft: rgba(107, 66, 91, 0.12);
-  --hero-shell: rgba(255, 255, 255, 0.4);
-  --hero-border: rgba(105, 71, 92, 0.12);
+  --muted: #5f5f5f;
+  --border-soft: rgba(17, 17, 17, 0.12);
+  --hero-shell: rgba(255, 255, 255, 0.46);
+  --hero-border: rgba(17, 17, 17, 0.12);
   --hero-glow:
     radial-gradient(
       circle at 20% 18%,
-      rgba(255, 171, 209, 0.42),
+      rgba(255, 255, 255, 0.76),
       transparent 28%
     ),
     radial-gradient(
       circle at 78% 22%,
-      rgba(255, 255, 255, 0.76),
+      rgba(194, 194, 194, 0.22),
       transparent 30%
     ),
     radial-gradient(
       circle at 54% 78%,
-      rgba(255, 197, 221, 0.34),
+      rgba(150, 150, 150, 0.16),
       transparent 30%
     ),
-    linear-gradient(135deg, #fff8fd 0%, #ffeef6 45%, #fffdfd 100%);
-  --hero-grid: rgba(80, 56, 68, 0.05);
-  --hero-vignette: rgba(66, 38, 53, 0.16);
-  --hero-orbit-one: rgba(255, 155, 205, 0.4);
-  --hero-orbit-two: rgba(255, 216, 238, 0.88);
-  --hero-orbit-three: rgba(255, 188, 220, 0.34);
-  --hero-kicker-strong-bg: rgba(45, 21, 35, 0.9);
-  --hero-kicker-strong-text: #fff7fb;
+    linear-gradient(135deg, #f7f7f7 0%, #e5e5e5 48%, #f0f0f0 100%);
+  --hero-grid: rgba(17, 17, 17, 0.05);
+  --hero-vignette: rgba(17, 17, 17, 0.13);
+  --hero-orbit-one: rgba(120, 120, 120, 0.16);
+  --hero-orbit-two: rgba(255, 255, 255, 0.72);
+  --hero-orbit-three: rgba(82, 82, 82, 0.12);
+  --hero-kicker-strong-bg: rgba(17, 17, 17, 0.92);
+  --hero-kicker-strong-text: #ffffff;
   --hero-kicker-soft-bg: rgba(255, 255, 255, 0.72);
-  --hero-kicker-soft-text: #7e5d70;
-  --hero-text: #23131d;
-  --hero-text-muted: #6d5566;
-  --hero-accent: #de4d8f;
-  --hero-section-line: rgba(105, 71, 92, 0.12);
-  --hero-panel-bg: rgba(255, 255, 255, 0.68);
-  --hero-panel-text: #23131d;
-  --hero-panel-caption: #8d6d7e;
+  --hero-kicker-soft-text: #525252;
+  --hero-text: #111111;
+  --hero-text-muted: #555555;
+  --hero-accent: #707070;
+  --hero-section-line: rgba(17, 17, 17, 0.12);
+  --hero-panel-bg: rgba(255, 255, 255, 0.64);
+  --hero-panel-text: #111111;
+  --hero-panel-caption: #707070;
   --toggle-shell: rgba(255, 255, 255, 0.56);
-  --toggle-border: rgba(107, 66, 91, 0.16);
-  --toggle-indicator: rgba(255, 240, 248, 0.92);
-  --toggle-indicator-border: rgba(107, 66, 91, 0.12);
-  --toggle-text: #4f3242;
-  --scrollbar-thumb: rgba(124, 93, 111, 0.28);
-  --scrollbar-thumb-hover: rgba(124, 93, 111, 0.44);
+  --toggle-border: rgba(17, 17, 17, 0.16);
+  --toggle-indicator: rgba(255, 255, 255, 0.92);
+  --toggle-indicator-border: rgba(17, 17, 17, 0.12);
+  --toggle-text: #333333;
+  --scrollbar-thumb: rgba(80, 80, 80, 0.3);
+  --scrollbar-thumb-hover: rgba(80, 80, 80, 0.48);
   --scrollbar-track: rgba(255, 255, 255, 0.06);
 }
 
@@ -185,7 +185,7 @@ a {
 }
 
 ::selection {
-  background: rgba(222, 77, 143, 0.22);
+  background: rgba(112, 112, 112, 0.26);
   color: var(--foreground);
 }
 

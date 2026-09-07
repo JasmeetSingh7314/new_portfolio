@@ -310,7 +310,7 @@ export default function Experience() {
             active={experiences.length}
             bulletSize={34}
             lineWidth={2}
-            color="sakura"
+            color="graphite"
             classNames={{
               itemBullet: "experience-timeline-bullet",
             }}

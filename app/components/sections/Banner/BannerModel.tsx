@@ -49,22 +49,22 @@ const SCENE_CONFIG = {
       intensity: 1.8,
     },
     hemisphere: {
-      skyColor: "#fff8fb",
-      groundColor: "#e7bfd1",
+      skyColor: "#f0f0f0",
+      groundColor: "#9a9a9a",
       intensity: 1.1,
     },
     key: {
-      color: "#fff7fb",
+      color: "#f8f8f8",
       intensity: 2.2,
       position: [4, 6, 7] satisfies Vector3Tuple,
     },
     fill: {
-      color: "#f3d7e8",
+      color: "#aaaaaa",
       intensity: 1.2,
       position: [-5, 2, 5] satisfies Vector3Tuple,
     },
     rim: {
-      color: "#ffe4f1",
+      color: "#d0d0d0",
       intensity: 1.5,
       position: [0, 3, -4] satisfies Vector3Tuple,
       distance: 24,

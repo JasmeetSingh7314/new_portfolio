@@ -1,6 +1,6 @@
 "use client";
 
-import { Text } from "@mantine/core";
+import { Text, useMantineColorScheme } from "@mantine/core";
 import type { StaticImageData } from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -82,11 +82,15 @@ function ProjectPlate({
   project,
   index,
   plateRefs,
+  isDark,
 }: {
   project: Project;
   index: number;
-  plateRefs: React.MutableRefObject<(HTMLArticleElement | null)[]>;
+  plateRefs: React.MutableRefObject<(HTMLElement | null)[]>;
+  isDark: boolean;
 }) {
+  const visualAccent = isDark ? project.accent : "#8a8a8a";
+
   return (
     <article
       ref={(node) => {
@@ -96,10 +100,16 @@ function ProjectPlate({
       style={{
         zIndex: projects.length - index,
         background:
-          "linear-gradient(180deg, rgba(9,9,11,0.96) 0%, rgba(12,12,14,0.985) 100%)",
+          isDark
+            ? "linear-gradient(180deg, rgba(9,9,11,0.96) 0%, rgba(12,12,14,0.985) 100%)"
+            : "linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(229,229,229,0.98) 100%)",
         borderColor:
-          "color-mix(in srgb, var(--hero-border) 88%, rgba(255,255,255,0.12) 12%)",
-        boxShadow: "0 20px 60px rgba(8, 8, 10, 0.18)",
+          isDark
+            ? "color-mix(in srgb, var(--hero-border) 88%, rgba(255,255,255,0.12) 12%)"
+            : "rgba(17,17,17,0.14)",
+        boxShadow: isDark
+          ? "0 20px 60px rgba(8, 8, 10, 0.18)"
+          : "0 20px 60px rgba(17,17,17,0.12)",
       }}
     >
       <div className="grid h-full gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(20rem,1.18fr)] lg:items-stretch xl:gap-8">
@@ -107,7 +117,9 @@ function ProjectPlate({
           <div className="space-y-5">
             <p
               className="text-[0.68rem] font-semibold uppercase tracking-[0.28em]"
-              style={{ color: "rgba(245,248,251,0.42)" }}
+              style={{
+                color: isDark ? "rgba(245,248,251,0.42)" : "#626262",
+              }}
             >
               {project.category}
             </p>
@@ -115,14 +127,16 @@ function ProjectPlate({
             <div className="space-y-4">
               <h3
                 className="max-w-[12ch] text-[clamp(2rem,5vw,4rem)] font-black leading-[0.92] tracking-[-0.08em]"
-                style={{ color: "#f5f8fb" }}
+                style={{ color: isDark ? "#f5f8fb" : "#111111" }}
               >
                 {project.title}
               </h3>
 
               <Text
                 className="max-w-[34rem] text-[0.95rem] leading-7 sm:text-base sm:leading-8"
-                style={{ color: "rgba(241,244,248,0.7)" }}
+                style={{
+                  color: isDark ? "rgba(241,244,248,0.7)" : "#505050",
+                }}
               >
                 {project.description}
               </Text>
@@ -135,13 +149,15 @@ function ProjectPlate({
                 <div key={metric.label} className="min-w-[8rem] space-y-1">
                   <p
                     className="text-3xl font-black tracking-[-0.08em] sm:text-4xl"
-                    style={{ color: "#f5f8fb" }}
+                    style={{ color: isDark ? "#f5f8fb" : "#111111" }}
                   >
                     {metric.value}
                   </p>
                   <p
                     className="text-[0.64rem] font-semibold uppercase tracking-[0.22em]"
-                    style={{ color: "rgba(245,248,251,0.46)" }}
+                    style={{
+                      color: isDark ? "rgba(245,248,251,0.46)" : "#626262",
+                    }}
                   >
                     {metric.label}
                   </p>
@@ -153,7 +169,7 @@ function ProjectPlate({
               <a
                 href="#contact"
                 className="inline-flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.24em]"
-                style={{ color: "#f5f8fb" }}
+                style={{ color: isDark ? "#f5f8fb" : "#111111" }}
               >
                 View case study
                 <span aria-hidden="true" className="text-base leading-none">
@@ -163,7 +179,9 @@ function ProjectPlate({
 
               <span
                 className="text-[0.62rem] uppercase tracking-[0.2em]"
-                style={{ color: "rgba(245,248,251,0.34)" }}
+                style={{
+                  color: isDark ? "rgba(245,248,251,0.34)" : "#707070",
+                }}
               >
                 {project.stack.join(" / ")}
               </span>
@@ -175,7 +193,9 @@ function ProjectPlate({
           <div
             className="absolute inset-0"
             style={{
-              background: `linear-gradient(180deg, color-mix(in srgb, ${project.accent} 76%, transparent) 0%, color-mix(in srgb, ${project.accent} 42%, rgba(12,12,14,0.2) 58%) 32%, rgba(12,12,14,0.06) 100%)`,
+              background: isDark
+                ? `linear-gradient(180deg, color-mix(in srgb, ${visualAccent} 76%, transparent) 0%, color-mix(in srgb, ${visualAccent} 42%, rgba(12,12,14,0.2) 58%) 32%, rgba(12,12,14,0.06) 100%)`
+                : `linear-gradient(180deg, color-mix(in srgb, ${visualAccent} 36%, #ffffff 64%) 0%, color-mix(in srgb, ${visualAccent} 18%, #f0f0f0 82%) 58%, #e2e2e2 100%)`,
             }}
           />
 
@@ -188,9 +208,14 @@ function ProjectPlate({
           />
 
           <div
-            className="absolute left-[8%] top-[18%] h-[68%] w-[24%] overflow-hidden rounded-[2rem] border border-white/8 bg-black/70 shadow-[0_20px_60px_rgba(8,8,10,0.32)] backdrop-blur-sm"
+            className="absolute left-[8%] top-[18%] h-[68%] w-[24%] overflow-hidden rounded-[2rem] border backdrop-blur-sm"
             style={{
               transform: `translateY(${index % 2 === 0 ? "4%" : "10%"})`,
+              background: isDark ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.78)",
+              borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(17,17,17,0.12)",
+              boxShadow: isDark
+                ? "0 20px 60px rgba(8,8,10,0.32)"
+                : "0 20px 60px rgba(17,17,17,0.16)",
             }}
           >
             <div
@@ -200,13 +225,24 @@ function ProjectPlate({
                 backgroundPosition: project.imagePosition ?? "center center",
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
-                filter: "brightness(0.6)",
+                filter: isDark
+                  ? "brightness(0.6)"
+                  : "grayscale(1) brightness(0.82) contrast(1.05)",
                 transform: "scale(1.14)",
               }}
             />
           </div>
 
-          <div className="absolute right-[6%] top-[5%] h-[94%] w-[82%] overflow-hidden rounded-[1.5rem] border border-white/8 bg-black/82 shadow-[0_26px_80px_rgba(6,6,8,0.38)]">
+          <div
+            className="absolute right-[6%] top-[5%] h-[94%] w-[82%] overflow-hidden rounded-[1.5rem] border"
+            style={{
+              background: isDark ? "rgba(0,0,0,0.82)" : "rgba(255,255,255,0.82)",
+              borderColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(17,17,17,0.12)",
+              boxShadow: isDark
+                ? "0 26px 80px rgba(6,6,8,0.38)"
+                : "0 26px 80px rgba(17,17,17,0.18)",
+            }}
+          >
             <div
               className="absolute inset-0"
               style={{
@@ -214,28 +250,37 @@ function ProjectPlate({
                 backgroundPosition: project.imagePosition ?? "center center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
+                filter: isDark ? undefined : "grayscale(1) contrast(1.06)",
               }}
             />
 
             <div
               className="absolute inset-0"
               style={{
-                background:
-                  "linear-gradient(180deg, rgba(10,10,12,0.02) 0%, rgba(10,10,12,0.24) 100%)",
+              background:
+                  isDark
+                    ? "linear-gradient(180deg, rgba(10,10,12,0.02) 0%, rgba(10,10,12,0.24) 100%)"
+                    : "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.2) 100%)",
               }}
             />
 
             <div
               className="absolute left-3 top-3 h-6 w-6 border-l border-t"
-              style={{ borderColor: "rgba(255,255,255,0.12)" }}
+              style={{
+                borderColor: isDark ? "rgba(255,255,255,0.12)" : "rgba(17,17,17,0.2)",
+              }}
             />
 
             <div
               className="absolute bottom-4 right-4 rounded-full px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.2em]"
               style={{
-                color: "#f5f8fb",
-                background: "rgba(8,8,10,0.48)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                color: isDark ? "#f5f8fb" : "#111111",
+                background: isDark
+                  ? "rgba(8,8,10,0.48)"
+                  : "rgba(255,255,255,0.78)",
+                border: isDark
+                  ? "1px solid rgba(255,255,255,0.08)"
+                  : "1px solid rgba(17,17,17,0.12)",
               }}
             >
               {project.year}
@@ -248,9 +293,11 @@ function ProjectPlate({
 }
 
 export default function Projects() {
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === "dark";
   const sectionRef = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
-  const plateRefs = useRef<(HTMLArticleElement | null)[]>([]);
+  const plateRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     if (!sectionRef.current || !stageRef.current) {
@@ -259,7 +306,7 @@ export default function Projects() {
 
     const ctx = gsap.context(() => {
       const plates = plateRefs.current.filter(
-        (plate): plate is HTMLArticleElement => Boolean(plate),
+        (plate): plate is HTMLElement => Boolean(plate),
       );
 
       if (!plates.length) {
@@ -402,6 +449,7 @@ export default function Projects() {
                 project={project}
                 index={index}
                 plateRefs={plateRefs}
+                isDark={isDark}
               />
             ))}
           </div>
